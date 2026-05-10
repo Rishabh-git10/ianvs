@@ -60,9 +60,6 @@ class TestCaseController:
             succeed_results[testcase.id] = (res, time)
             succeed_testcases.append(testcase)
 
-            if incremental_save_cb:
-                incremental_save_cb(testcase, res, time)
-
         return succeed_testcases, succeed_results
 
     @classmethod

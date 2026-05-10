@@ -94,12 +94,10 @@ class BenchmarkingJob:
         def incremental_save(testcase, res, time):
             self.rank.save([testcase], {testcase.id: (res, time)}, output_dir=self.workspace)
 
-        _, test_results = self.testcase_controller.run_testcases(
-            self.workspace,
-            incremental_save_cb=incremental_save
-        )
+        succeed_testcases, test_results = self.testcase_controller.run_testcases(self.workspace)
 
         if test_results:
+            self.rank.save(succeed_testcases, test_results, output_dir=self.workspace)
             self.rank.plot()
 
     def _parse_config(self, config: dict):
